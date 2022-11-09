@@ -37,6 +37,7 @@ export const Cube: FC<CubeProp> = ({ position, texture }) => {
           removeCube(x, y, z);
           return;
         }
+        // どの面をクリックしたかによってCubeを追加する位置を変える
         switch (clickedFace) {
           case 0:
             addCube(x + 1, y, z);

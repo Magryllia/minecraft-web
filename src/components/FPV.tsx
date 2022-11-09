@@ -2,6 +2,7 @@ import { PointerLockControls } from "@react-three/drei";
 import { useThree } from "@react-three/fiber";
 import React from "react";
 
+// First Person View
 export const FPV = () => {
   const { camera, gl } = useThree();
 

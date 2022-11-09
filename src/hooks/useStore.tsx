@@ -15,6 +15,7 @@ type CubeInfo = {
   texture: string;
 };
 
+// Cubeの状態管理
 export const useStore = create<CubeState>((set) => ({
   texture: "dirt",
   cubes: [],

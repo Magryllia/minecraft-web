@@ -1,8 +1,8 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import { useStore } from "../hooks/useStore";
-import { useKeyboard } from "../hooks/useKeyboard";
 import { dirtImg, grassImg, glassImg, woodImg, logImg } from "../images/images";
+import { useKeyboardControls } from "@react-three/drei";
 
 const images: { [key: string]: string } = {
   dirt: dirtImg,
@@ -15,7 +15,13 @@ const images: { [key: string]: string } = {
 export const TextureSelector = () => {
   const [visible, setVisible] = useState(false);
   const [activeTexture, setTexture] = useStore((state) => [state.texture, state.setTexture]);
-  const { dirt, grass, glass, wood, log } = useKeyboard();
+  const [dirt, grass, glass, wood, log]: boolean[] = useKeyboardControls((state) => [
+    state.digit1,
+    state.digit2,
+    state.digit3,
+    state.digit4,
+    state.digit5,
+  ]);
 
   useEffect(() => {
     const textures = { dirt, grass, glass, wood, log };

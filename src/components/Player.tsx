@@ -2,11 +2,10 @@ import { useSphere } from "@react-three/cannon";
 import { useFrame, useThree } from "@react-three/fiber";
 import React, { useEffect, useRef } from "react";
 import { ToVector3 } from "../Utils/MathUtil";
-import { useKeyboard } from "../hooks/useKeyboard";
 import { Mesh, Vector3 } from "three";
 import { useKeyboardControls } from "@react-three/drei";
 
-const JUMP_FORCE = 4;
+const JUMP_FORCE = 5;
 const SPEED = 2;
 
 export const Player = () => {
@@ -19,6 +18,8 @@ export const Player = () => {
   ]);
 
   const { camera } = useThree();
+
+  // プレイヤー用のSphereコリジョン
   const [ref, api] = useSphere<Mesh>(() => ({
     mass: 1,
     type: "Dynamic",
@@ -30,11 +31,13 @@ export const Player = () => {
     api.velocity.subscribe((v) => (vel.current = v));
   }, [api.velocity]);
 
+  // プレイヤーの位置情報を更新
   const pos = useRef([0, 0, 0]);
   useEffect(() => {
     api.position.subscribe((p) => (pos.current = p));
   }, [api.position]);
 
+  // プレイヤーの速度とカメラの位置を更新
   useFrame(() => {
     camera.position.copy(ToVector3(pos.current) as THREE.Vector3);
 
